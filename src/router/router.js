@@ -7,7 +7,7 @@ const router = express.Router();
 router.use("/auth",authRouter)
 
 router.use(CheckAuthMiddleware)
-router.use("/product",)
+router.use("/product")
 
 
 
