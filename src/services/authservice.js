@@ -1,14 +1,13 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { findUserByEmail } from "./userservice.js";
-import { NotFoundException, UnauthorizedException } from "../tool/error/index.js";
 
 
 
 const loginUser = async (payload) => {
   const user = await findUserByEmail(payload.email);
 
-  if (!user) throw new NotFoundException("email not found");
+  if (!user) return "email not found"
 
   const match = await bcrypt.compare(payload.password, user.password);
 

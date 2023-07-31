@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { UnauthorizedException } from "../tool/error/index.js";
+
 
 const CheckAuthMiddleware = (req, res, next) => {
   try {
@@ -13,7 +13,7 @@ const CheckAuthMiddleware = (req, res, next) => {
       throw new Error();
     }
   } catch (e) {
-    return next(new UnauthorizedException("please sign in"));
+    return "please sign in";
   }
 };
 export default CheckAuthMiddleware;

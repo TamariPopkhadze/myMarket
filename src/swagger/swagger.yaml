@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: mymarket
+  description: myMarket API
+  version: 0.1.9
+
+servers:
+  - url: http://localhost:3000/api
+    description: local server
+  # - url: https://todo-api-rsne.onrender.com/api
+  #   description: todo server
+
+paths:
+  /allUsers:
+    get:
+      tags:
+        - todo
+      responses:
+        "200":
+          description: Successfully fetched
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /auth/login:
+    post:
+      tags:
+        - Mymarket
+      security:               
+        - bearerAuth: []       
+      requestBody:
+        description: login user
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string         
+            example:
+                email: popkhadze@ggmail.com
+                password: paroli
+      responses:
+        "200":
+          description: login successfully
+  /auth/register:
+    post:
+      tags:
+        - Mymarket
+      requestBody:
+        description: register user
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                balance: 
+                  type: number
+                email:
+                  type: string
+                password:
+                  type: string
+                userType:
+                  type: string
+                isAdmin:
+                  type: boolean           
+            example:
+                firstName: tamari
+                lastName: popkhadze
+                balance: 3000
+                email: popkhadze@ggmail.com
+                password: paroli
+                userType: seller
+                isAdmin: false
+      responses:
+        "200":
+          description: user created
+ 

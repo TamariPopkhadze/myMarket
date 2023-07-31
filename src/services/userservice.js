@@ -1,5 +1,5 @@
 import pool from "../database/sql.js";
-import { ConflictException } from "../tool/error/index.js";
+import bcrypt from 'bcrypt'
 
 export const findUserById = async (userId) => {
   const query = `
@@ -9,7 +9,7 @@ export const findUserById = async (userId) => {
 
   try {
     const result = await pool.query(query, [userId]);
-    return result.rows[0]; // Assuming the ID is unique, we expect at most one row.
+    return result.rows[0];
   } catch (error) {
     console.error("Error while finding user by ID:", error);
     throw error;
@@ -25,7 +25,7 @@ export const findUserByEmail = async (userEmail) => {
 
   try {
     const result = await pool.query(query, [userEmail]);
-    return result.rows[0]; // Assuming the ID is unique, we expect at most one row.
+    return result.rows[0]; 
   } catch (error) {
     console.error("Error while finding user by ID:", error);
     throw error;
@@ -34,11 +34,11 @@ export const findUserByEmail = async (userEmail) => {
 
 export const createUser = async (payload) => {
   const user = await findUserByEmail(payload.email);
-
-  if (user) return ConflictException("user already exist ");
+  if (user !== undefined) return "user already exist "
+  const salt = 10
   const hashedPassword = bcrypt.hashSync(
-    userPayload.password,
-    Number(process.env.AUTH_SALT_AMOUNT)
+    payload.password,
+    Number(process.env.salt)
   );
   payload.password = hashedPassword;
 
@@ -58,8 +58,8 @@ export const createUser = async (payload) => {
     payload.isAdmin,
   ];
   try {
-    const result = await pool.query(insertQuery, values);
-    return result.rows[0]; // Return the inserted user record
+     await pool.query(insertQuery, values);
+    return 'created successfully'
   } catch (error) {
     console.error("Error inserting user:", error);
     throw error;
