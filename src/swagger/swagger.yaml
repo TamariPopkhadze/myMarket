@@ -260,3 +260,45 @@ paths:
       responses:
         '200':
           description: OK
+  /buy/product/{id}:
+    post:
+      parameters:
+        - in: path    
+          name: id   
+          schema:
+            type: number
+      tags:
+        - Buy Product
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Buy Product
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: number           
+            example:
+                userId: 1
+      responses:
+        "200":
+          description: buy successfully
+  /transactions:
+    get:
+      tags:
+        - transactions
+      summary: Get all transactions
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully fetched
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
