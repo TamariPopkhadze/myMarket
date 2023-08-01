@@ -57,7 +57,7 @@ export const getProductById = async (id) => {
 };
 
 export const updateProductById = async (payload, id) => {
-    const user = await findUserById(userId);
+    const user = await findUserById(id);
   
     // Check if the user is an admin
     const isAdmin = user && user.isadmin === true;
