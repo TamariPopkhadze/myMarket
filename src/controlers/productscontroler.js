@@ -1,4 +1,4 @@
-import { getProduct, getProductById, insertProduct } from "../services/productservice.js";
+import { getProduct, getProductById, insertProduct, updateProductById } from "../services/productservice.js";
 
 export const createNewProduct = async(req,res) => {
     const payload = req.body;
@@ -24,6 +24,11 @@ export const getOneProduct = async(req,res) => {
 }
 
 export const updateProduct = async(req,res) => {
+
+    const payload = req.body;
+    const {id} = req.params;
+    const product = await updateProductById(payload, Number(id));
+    return res.json({message:product})
     
 }
 

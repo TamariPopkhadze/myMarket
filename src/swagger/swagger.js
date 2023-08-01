@@ -4,7 +4,7 @@ import YAML from "yamljs";
 const swaggerMiddleware = () => {
   const options = {
     customCss: ".swagger-ui .topbar { display: none }",
-    customSiteTitle: "todo",
+    customSiteTitle: "myMarket",
   };
 
   const swaggerDocument = YAML.load("./src/swagger/swagger.yaml");

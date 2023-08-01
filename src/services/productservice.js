@@ -25,7 +25,6 @@ export const insertProduct = async (payload) => {
   }
 };
 export const getProduct = async () => {
-  console.log("getProduct");
   const insertQuery = `
     select * from products;
     
@@ -50,6 +49,29 @@ export const getProductById = async (id) => {
     const response = await pool.query(query, [id]);
 
     return response.rows[0];
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateProductById = async (payload, id) => {
+  const updateQuery = `
+  UPDATE products
+  SET title = $1, description = $2, price = $3, userId = $4,  typeId = $5, updatedAt = NOW()
+  WHERE id = $6;
+`;
+  const values = [
+    payload.title,
+    payload.description,
+    payload.price,
+    payload.userId,
+    payload.typeId,
+    id,
+  ];
+  try {
+    await pool.query(updateQuery, values);
+
+    return "updated succsesfully";
   } catch (error) {
     return error;
   }
