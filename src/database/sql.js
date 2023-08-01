@@ -38,13 +38,14 @@ export const createTable = async () => {
       title TEXT NOT NULL,
       description TEXT,
       price NUMERIC NOT NULL,
-      soldAt TIMESTAMPTZ,
+      soldAt TIMESTAMPTZ ,
       createdAt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updatedAt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-      deletedAt TIMESTAMPTZ,
+      deletedAt TIMESTAMPTZ ,
       userId INTEGER REFERENCES users(id) ON DELETE CASCADE,
       typeId INTEGER REFERENCES product_types(id)
     )`);
+    
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS transactions (

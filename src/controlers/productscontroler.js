@@ -1,4 +1,4 @@
-import { insertProduct } from "../services/productservice.js";
+import { getProduct, getProductById, insertProduct } from "../services/productservice.js";
 
 export const createNewProduct = async(req,res) => {
     const payload = req.body;
@@ -8,11 +8,18 @@ export const createNewProduct = async(req,res) => {
 
 }
 
-export const getAllProducts = async(req,res) => {
+export const getAllProducts = async(_,res) => {
+    
+    const product = await getProduct();
+    return res.json(product)
     
 }
 
 export const getOneProduct = async(req,res) => {
+    const {id} = req.params;
+    const productById = await getProductById(Number(id));
+    return res.json(productById)
+    
     
 }
 
