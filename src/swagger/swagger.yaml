@@ -5,16 +5,25 @@ info:
   version: 0.1.9
 
 servers:
-  - url: http://localhost:3000/api
+  - url: http://localhost:3001/api
     description: local server
   # - url: https://todo-api-rsne.onrender.com/api
   #   description: todo server
-
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 paths:
   /allUsers:
     get:
       tags:
-        - todo
+        - Mymarket
+      summary: Get all users
+      description: Retrieve a list of all users.
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successfully fetched
@@ -23,13 +32,11 @@ paths:
               schema:
                 type: array
                 items:
-                  type: string
+                  type: object
   /auth/login:
     post:
       tags:
-        - Mymarket
-      security:               
-        - bearerAuth: []       
+        - Mymarket    
       requestBody:
         description: login user
         required: true

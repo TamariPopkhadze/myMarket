@@ -1,17 +1,28 @@
 import pool from "../database/sql.js";
 import loginUser from "../services/authservice.js";
 import { createUser } from "../services/userservice.js";
+import loginSchema from "../validation/loginvalidation.js";
+import userSchema from "../validation/validregistration.js";
 
 export const registration = async (req, res) => {
   const payload = req.body;
-  const user = await createUser(payload);
-  if(user) return res.json({message:user})
-  
+  const validator = await userSchema();
+  const { value, error } = validator.validate(payload);
+  if (error) {
+    return res.status(422).json(error.details);
+  }
+  const user = await createUser(value);
+  if (user) return res.json({ message: user });
 };
 
 export const login = async (req, res) => {
   const payload = req.body;
-  const token = await loginUser(payload);
+  const validator = await loginSchema();
+  const { value, error } = validator.validate(payload);
+  if (error) {
+    return res.status(422).json(error.details);
+  }
+  const token = await loginUser(value);
   return res.json({ token });
 };
 
