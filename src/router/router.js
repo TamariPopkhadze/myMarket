@@ -8,7 +8,7 @@ import producttypeRouter from "./producttyperouter.js";
 const router = express.Router();
 router.use("/auth", authRouter);
 
-// router.use(CheckAuthMiddleware);
+router.use(CheckAuthMiddleware);
 router.get('/allUsers',getUsers)
 
 router.use("/product",productRouter);
