@@ -51,7 +51,7 @@ export const createTable = async () => {
       sellerId INTEGER REFERENCES users(id) ON DELETE CASCADE,
       buyerId INTEGER REFERENCES users(id) ON DELETE CASCADE,
       productId INTEGER REFERENCES products(id) ON DELETE CASCADE,
-      price NUMERIC NOT NULL,
+      price INTEGER NOT NULL,
       createdAt TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )`);
 };

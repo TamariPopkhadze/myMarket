@@ -2,7 +2,7 @@ import pool from "../database/sql.js";
 import { findUserById } from "./userservice.js";
 
 export const insertProduct = async (payload) => {
-  console.log("i am in insertProduct");
+  
   try {
     const insertQuery = `
         INSERT INTO products (title, description, price,userId,typeId)
@@ -17,9 +17,9 @@ export const insertProduct = async (payload) => {
       payload.userId,
       payload.typeId,
     ];
-    console.log("a");
+    
     await pool.query(insertQuery, values);
-    console.log("await");
+   
     return "created successfully";
   } catch (error) {
     return error;

@@ -8,12 +8,14 @@ export const buyProduct = async (id, userId) => {
       const buyer = await findUserById(userId);
       
       const seller = await findUserById(product.userid); 
+      
       if (userId === product.userid)
         return "You already have this product. Don't be greedy.";
       
-      const productPrice = parseFloat(product.price); 
-      const buyerBalance = parseFloat(buyer.balance); 
-      const sellerBalance = parseFloat(seller.balance); 
+      const productPrice = Number(product.price); 
+      const buyerBalance = Number(buyer.balance); 
+      const sellerBalance = Number(seller.balance); 
+      
         
       if (buyerBalance < productPrice) {
         return "You don't have enough money.";
@@ -48,7 +50,7 @@ export const buyProduct = async (id, userId) => {
         VALUES ($1, $2, $3, $4, NOW())
         RETURNING *;
       `;
-      const values = [product.userId, userId, id, productPrice]; 
+      const values = [product.userid, userId, id, productPrice]; 
   
       await pool.query(insertQuery, values);
       await pool.query(updateProduct, value);
