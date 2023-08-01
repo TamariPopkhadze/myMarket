@@ -7,9 +7,11 @@ export const buyProductById = async (req,res) => {
     const validator = await ByProductSchema();
     const { value, error } = validator.validate(buyer);
     if (error) {
+
       return res.status(422).json(error.details);
     }
-   const response = await buyProduct(Number(id),value.userid);
+   
+   const response = await buyProduct(Number(id),value.userId);
    return res.json(response);
    
 

@@ -223,14 +223,13 @@ paths:
                   type: number
                 userId:
                   type: number
-                typeId:
-                  type: number           
+                          
             example:
                 title: T-shirt
                 description: new
                 price: 23
                 userId: 2
-                typeId: 1
+                
       responses:
         '200':
           description: OK
