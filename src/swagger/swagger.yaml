@@ -96,8 +96,8 @@ paths:
     post:
       tags:
         - productType
-      # security:
-      #   - bearerAuth: []
+      security:
+        - bearerAuth: []
       requestBody:
         description: add new ProductType
         required: true
@@ -119,8 +119,8 @@ paths:
         - productType
       summary: Get all productType
       description: Retrieve a list of all productType.
-      # security:
-      #   - bearerAuth: []
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successfully fetched
@@ -134,8 +134,8 @@ paths:
     post:
       tags:
         - product
-      # security:
-      #   - bearerAuth: []
+      security:
+        - bearerAuth: []
       requestBody:
         description: add new Product
         required: true
@@ -169,8 +169,8 @@ paths:
         - product
       summary: Get all product
       description: Retrieve a list of all product.
-      # security:
-      #   - bearerAuth: []
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successfully fetched
@@ -185,6 +185,8 @@ paths:
       tags:
         - product
       summary: Get a product by ID
+      security:
+        - bearerAuth: []
       parameters:
         - in: path    
           name: id   
@@ -203,6 +205,8 @@ paths:
             type: number
       tags:
         - product
+      security:
+        - bearerAuth: []
       requestBody:
         description: update user
         required: true
@@ -227,6 +231,32 @@ paths:
                 price: 23
                 userId: 2
                 typeId: 1
+      responses:
+        '200':
+          description: OK
+  /product/delete/{id}:  
+    delete:
+      parameters:
+        - in: path    
+          name: id   
+          schema:
+            type: number
+      tags:
+        - product
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: delete product
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                userId:
+                  type: number          
+            example:
+                userId: 2
       responses:
         '200':
           description: OK

@@ -22,7 +22,6 @@ export const createTable = async () => {
       userType TEXT NOT NULL,
       createdAt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updatedAt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-      deletedAt TIMESTAMPTZ,
       isAdmin BOOLEAN NOT NULL DEFAULT false
     )`);
 
@@ -41,7 +40,6 @@ export const createTable = async () => {
       soldAt TIMESTAMPTZ ,
       createdAt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updatedAt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-      deletedAt TIMESTAMPTZ ,
       userId INTEGER REFERENCES users(id) ON DELETE CASCADE,
       typeId INTEGER REFERENCES product_types(id)
     )`);

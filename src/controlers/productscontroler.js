@@ -1,4 +1,4 @@
-import { getProduct, getProductById, insertProduct, updateProductById } from "../services/productservice.js";
+import { deleteProductById, getProduct, getProductById, insertProduct, updateProductById } from "../services/productservice.js";
 
 export const createNewProduct = async(req,res) => {
     const payload = req.body;
@@ -33,6 +33,11 @@ export const updateProduct = async(req,res) => {
 }
 
 export const deleteProduct = async(req,res) => {
+    const {id} = req.params;
+    const payload = req.body;
+    const response = await deleteProductById(Number(id),payload.userId)
+    return res.json(response)
+
     
 }
 

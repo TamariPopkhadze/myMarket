@@ -1,4 +1,5 @@
 import pool from "../database/sql.js";
+import { findUserById } from "./userservice.js";
 
 export const insertProduct = async (payload) => {
   console.log("i am in insertProduct");
@@ -25,6 +26,7 @@ export const insertProduct = async (payload) => {
   }
 };
 export const getProduct = async () => {
+  
   const insertQuery = `
     select * from products;
     
@@ -55,24 +57,61 @@ export const getProductById = async (id) => {
 };
 
 export const updateProductById = async (payload, id) => {
-  const updateQuery = `
-  UPDATE products
-  SET title = $1, description = $2, price = $3, userId = $4,  typeId = $5, updatedAt = NOW()
-  WHERE id = $6;
-`;
-  const values = [
-    payload.title,
-    payload.description,
-    payload.price,
-    payload.userId,
-    payload.typeId,
-    id,
-  ];
-  try {
-    await pool.query(updateQuery, values);
-
-    return "updated succsesfully";
-  } catch (error) {
-    return error;
+    const user = await findUserById(userId);
+  
+    // Check if the user is an admin
+    const isAdmin = user && user.isadmin === true;
+    const updateQuery = `
+      UPDATE products
+      SET title = $1, description = $2, price = $3, updatedAt = NOW()
+      WHERE id = $4 AND userId = $5 OR $6 = true;
+    `;
+  
+    const values = [
+      payload.title,
+      payload.description,
+      payload.price,
+      id, // The product ID for the WHERE clause
+      payload.userId,
+      isAdmin
+    ];
+  
+    try {
+      const result = await pool.query(updateQuery, values);
+  
+      if (result.rowCount === 0) {
+        return "Product not found or does not belong to the user.";
+      }
+  
+      return "updated successfully";
+    } catch (error) {
+      return error;
+    }
   }
-};
+
+  export const deleteProductById = async (id, userId) => {
+    const user = await findUserById(userId);
+    
+    // Check if the user is an admin
+    const isAdmin = user && user.isadmin === true;
+  
+    const deleteQuery = `
+      DELETE FROM products 
+      WHERE (id = $1 AND userId = $2) OR $3 = true;
+    `;
+  
+    try {
+      const result = await pool.query(deleteQuery, [id, userId, isAdmin]);
+  
+      if (result.rowCount === 0) {
+        return "Product not found or does not belong to the user.";
+      }
+  
+      return "Deleted successfully";
+    } catch (error) {
+      return error;
+    }
+  }
+  
+  
+  
