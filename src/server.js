@@ -23,7 +23,7 @@ async function init() {
 
     app.use("/api",cors(), router);
     app.use("/", ...swaggerMiddleware());
-    app.listen(3001);
+    app.listen(3003);
   }
 }
 

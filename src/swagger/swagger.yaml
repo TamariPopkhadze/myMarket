@@ -5,7 +5,7 @@ info:
   version: 0.1.9
 
 servers:
-  - url: http://localhost:3001/api
+  - url: http://localhost:3003/api
     description: local server
   # - url: https://todo-api-rsne.onrender.com/api
   #   description: todo server
@@ -19,7 +19,7 @@ paths:
   /allUsers:
     get:
       tags:
-        - Mymarket
+        - User
       summary: Get all users
       description: Retrieve a list of all users.
       security:
@@ -36,7 +36,7 @@ paths:
   /auth/login:
     post:
       tags:
-        - Mymarket    
+        - User    
       requestBody:
         description: login user
         required: true
@@ -58,7 +58,7 @@ paths:
   /auth/register:
     post:
       tags:
-        - Mymarket
+        - User
       requestBody:
         description: register user
         required: true
@@ -92,4 +92,74 @@ paths:
       responses:
         "200":
           description: user created
- 
+  /productType/addNewProducttype:
+    post:
+      tags:
+        - productType
+      # security:
+      #   - bearerAuth: []
+      requestBody:
+        description: add new ProductType
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string          
+            example:
+                name: clothes
+      responses:
+        "200":
+          description: user created
+  /productType/allProductstype:
+    get:
+      tags:
+        - productType
+      summary: Get all productType
+      description: Retrieve a list of all productType.
+      # security:
+      #   - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully fetched
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /product/addNewProduct:
+    post:
+      tags:
+        - product
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: add new Product
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                price: 
+                  type: number
+                userId:
+                  type: number
+                typeId:
+                  type: number           
+            example:
+                title: T-shirt
+                description: new
+                price: 23
+                userId:
+                typeId:
+      responses:
+        "200":
+          description: user created
