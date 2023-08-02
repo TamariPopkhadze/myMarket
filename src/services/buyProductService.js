@@ -53,9 +53,10 @@ export const buyProduct = async (id, userId) => {
       const values = [product.userid, userId, id, productPrice]; 
   
       await pool.query(insertQuery, values);
-      await pool.query(updateProduct, value);
-      await pool.query(updateBuyerBalance, buyerValue);
       await pool.query(updateSellerBalance, sellerValue);
+      await pool.query(updateBuyerBalance, buyerValue);
+      await pool.query(updateProduct, value);
+     
       
       return "Congratulations! The purchase was successful.";
     } catch (error) {
