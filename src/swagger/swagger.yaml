@@ -5,10 +5,10 @@ info:
   version: 0.1.9
 
 servers:
-  - url: http://localhost:3003/api
-    description: local server
   - url: https://mymarket-api-dd30.onrender.com/api
     description: todo server
+  - url: http://localhost:3003/api
+    description: local server
 components:
   securitySchemes:
     bearerAuth:
