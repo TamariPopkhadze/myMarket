@@ -7,8 +7,8 @@ info:
 servers:
   - url: http://localhost:3003/api
     description: local server
-  # - url: https://todo-api-rsne.onrender.com/api
-  #   description: todo server
+  - url: https://mymarket-api-dd30.onrender.com/api
+    description: todo server
 components:
   securitySchemes:
     bearerAuth:
