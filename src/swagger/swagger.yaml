@@ -6,7 +6,7 @@ info:
 
 servers:
   - url: https://mymarket-api-dd30.onrender.com/api
-    description: todo server
+    description: Render server
   - url: http://localhost:3003/api
     description: local server
 components:
