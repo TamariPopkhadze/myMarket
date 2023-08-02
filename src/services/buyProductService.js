@@ -35,7 +35,7 @@ export const buyProduct = async (id, userId) => {
       `;
       const sellerValue = [
         sellerBalance + productPrice, 
-        product.userId, 
+        product.userid, 
       ];
   
       const updateProduct = `
